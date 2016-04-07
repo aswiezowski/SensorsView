@@ -1,0 +1,62 @@
+<resources>
+    <string-array name="val_accelerometr">
+        <item>X-axis</item>
+        <item>Y-axis</item>
+        <item>Z-axis</item>
+    </string-array>
+    <string-array name="val_ambient_temperature">
+        <item>Temperature</item>
+    </string-array>
+    <string-array name="val_gravity">
+        <item>X-axis</item>
+        <item>Y-axis</item>
+        <item>Z-axis</item>
+    </string-array>
+    <string-array name="val_gyroscope">
+        <item>X-axis</item>
+        <item>Y-axis</item>
+        <item>Z-axis</item>
+    </string-array>
+    <string-array name="val_light">
+        <item>Light</item>
+    </string-array>
+    <string-array name="val_linear_acceleration">
+        <item>X-axis</item>
+        <item>Y-axis</item>
+        <item>Z-axis</item>
+    </string-array>
+    <string-array name="val_magnetic_field">
+        <item>X-axis</item>
+        <item>Y-axis</item>
+        <item>Z-axis</item>
+    </string-array>
+    <string-array name="val_orientation">
+        <item>X-axis</item>
+        <item>Y-axis</item>
+        <item>Z-axis</item>
+    </string-array>
+    <string-array name="val_pressure">
+        <item>Pressure</item>
+    </string-array>
+    <string-array name="val_proximity">
+        <item>Proximity</item>
+    </string-array>
+    <string-array name="val_relative_humidity">
+        <item>Relative humidity</item>
+    </string-array>
+    <string-array name="val_rotation_vector">
+        <item>X-axis</item>
+        <item>Y-axis</item>
+        <item>Z-axis</item>
+    </string-array>
+    <string-array name="val_temperature">
+        <item>Temperature</item>
+    </string-array>
+    <string-array name="val_heartrate">
+        <item>Rate</item>
+    </string-array>
+    <string-array name="val_step_counter">
+        <item>Steps</item>
+    </string-array>
+
+</resources>
