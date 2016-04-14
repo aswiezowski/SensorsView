@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/fragementsAppBar">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:fillViewport="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <fragment android:name="kis.agh.edu.pl.sensorsview.CallStateFragment"
+                android:id="@+id/cLFragment"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_call_state" />
+            <fragment android:name="kis.agh.edu.pl.sensorsview.TelephonyManagerFragment"
+                android:id="@+id/tMFragment"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_telephony_manager" />
+            <fragment android:name="kis.agh.edu.pl.sensorsview.BluetoothFragment"
+                android:id="@+id/bFragment"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_bluetooth" />
+            <fragment android:name="kis.agh.edu.pl.sensorsview.CameraFragment"
+                android:id="@+id/cFragment"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_camera" />
+            <fragment android:name="kis.agh.edu.pl.sensorsview.PlayLocationFragment"
+                android:id="@+id/pLFragment"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_play_location" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
