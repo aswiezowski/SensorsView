@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,7 +33,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class PlayLocationFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status>, LocationListener {
@@ -43,6 +48,7 @@ public class PlayLocationFragment extends Fragment implements
 
     protected TextView mLatitudeText;
     protected TextView mLongitudeText;
+    protected TextView mAddressText;
 
     protected ActivityDetectionBroadcastReceiver mBroadcastReceiver;
     private ListView mDetectedActivitiesListView;
@@ -50,6 +56,7 @@ public class PlayLocationFragment extends Fragment implements
     private ArrayList<DetectedActivity> mDetectedActivities;
     private OnFragmentInteractionListener mListener;
     private LocationRequest mLocationRequest;
+    private Geocoder geocoder;
 
     public PlayLocationFragment() {
     }
@@ -72,6 +79,7 @@ public class PlayLocationFragment extends Fragment implements
 
         mLatitudeText = (TextView) v.findViewById((R.id.tVLatValue));
         mLongitudeText = (TextView) v.findViewById((R.id.tVLongValue));
+        mAddressText = (TextView) v.findViewById((R.id.tVAddressValue));
 
         mDetectedActivitiesListView = (ListView) v.findViewById(R.id.lVDetectedActivity);
         mBroadcastReceiver = new ActivityDetectionBroadcastReceiver();
@@ -89,6 +97,7 @@ public class PlayLocationFragment extends Fragment implements
         mLocationRequest.setInterval(10000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+        geocoder = new Geocoder(this.getActivity(), Locale.getDefault());
         buildGoogleApiClient();
 
         return v;
@@ -155,7 +164,7 @@ public class PlayLocationFragment extends Fragment implements
     @Override
     public void onConnected(Bundle connectionHint) {
         LocationServices.FusedLocationApi.requestLocationUpdates(
-               mGoogleApiClient, mLocationRequest, this);
+                mGoogleApiClient, mLocationRequest, this);
 
         ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(
                 mGoogleApiClient,
@@ -180,11 +189,7 @@ public class PlayLocationFragment extends Fragment implements
     @Override
     public void onResult(Status status) {
         if (status.isSuccess()) {
-            Toast.makeText(
-                    this.getActivity(),
-                    "Update activities",
-                    Toast.LENGTH_SHORT
-            ).show();
+
         } else {
             Toast.makeText(this.getActivity(), "Error adding or removing activity detection: " + status.getStatusMessage(),Toast.LENGTH_LONG).show();
         }
@@ -196,6 +201,29 @@ public class PlayLocationFragment extends Fragment implements
         if (mLastLocation != null) {
             mLatitudeText.setText(Double.toString(mLastLocation.getLatitude()));
             mLongitudeText.setText(Double.toString(mLastLocation.getLongitude()));
+            try {
+                List<Address> addresses = geocoder.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1);
+                String addressesText = "";
+                for(Address adr: addresses){
+                    for(int i=0;i<adr.getMaxAddressLineIndex();i++){
+                        addressesText+="Address: "+Utilities.getNotNullValue(adr.getAddressLine(i))+"\n";
+                    }
+                    addressesText+="Admin area "+Utilities.getNotNullValue(adr.getAdminArea())+
+                    "\nCountry code "+Utilities.getNotNullValue(adr.getCountryCode())+
+                    "\nCountry name "+Utilities.getNotNullValue(adr.getCountryName())+
+                    "\nFeature name "+Utilities.getNotNullValue(adr.getFeatureName())+
+                    "\nPhone "+Utilities.getNotNullValue(adr.getPhone())+
+                    "\nPostal code "+Utilities.getNotNullValue(adr.getPostalCode()) +
+                    "\nPremises " + Utilities.getNotNullValue(adr.getPremises()) +
+                    "\nLocality " + Utilities.getNotNullValue(adr.getLocality()) +
+                    "\nSub admin area " + Utilities.getNotNullValue(adr.getSubAdminArea()) +
+                    "\nSub locality " + Utilities.getNotNullValue(adr.getSubLocality());
+                }
+               mAddressText.setText(addressesText);
+            } catch (IOException e) {
+                Toast.makeText(getActivity(), "Can't get street address",Toast.LENGTH_LONG);
+            }
+
         } else {
             Toast.makeText(this.getActivity(), "No location detected", Toast.LENGTH_LONG).show();
         }

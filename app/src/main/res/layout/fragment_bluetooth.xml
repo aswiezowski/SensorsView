@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Start"
         android:id="@+id/btnStart"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/tVStateLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -49,4 +49,32 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="State:"
+        android:id="@+id/tVStateLabel"
+        android:layout_below="@+id/tVInfoValue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Information"
+        android:id="@+id/tVInfoValue"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/tVStateValue"
+        android:layout_below="@+id/tVInfoValue"
+        android:layout_alignRight="@+id/tVInfoValue"
+        android:layout_alignEnd="@+id/tVInfoValue"
+        android:layout_alignTop="@+id/tVStateLabel"/>
 </RelativeLayout>
